@@ -38,4 +38,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.log_formatter = proc do |severity, datetime, progname, msg|
+    "[#{severity}] [#{datetime.utc.iso8601}] [PID=#{Process.pid}] #{L.data} #{msg}\n"
+  end
 end

@@ -28,6 +28,15 @@ module L
       tags = nil
     end
     logger.info "#{tags}#{msg}"
+  rescue
+    puts "Error in L"
+  end
+
+  def self.data
+    now = Time.zone.now.to_f
+    "[REQD=#{L.req_delta(now)}] [LOCD=#{L.local_delta(now)}] [RID=#{L.rid}]"
+  rescue
+    "[L not initialized]"
   end
 
   def self.local_delta(now)
@@ -49,7 +58,7 @@ module L
   end
 
   def self.format(num)
-    sprintf('%.4f', num)
+    sprintf('%.3f', num)
   end
 
   def self.logger

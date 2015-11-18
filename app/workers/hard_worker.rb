@@ -5,5 +5,6 @@ class HardWorker
     L.i("worker", "worker", "worker")
     sleep 2
     L.i("worker", "worker", "worker")
+    L.i("worker", "worker", { "worker" => "sidekiq" })
   end
 end

@@ -22,24 +22,6 @@ module Logging
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-
-    class LoggingMiddleware
-      def initialize(app)
-        @app = app
-      end
-
-      def call(env)
-        L.init(env["action_dispatch.request_id"])
-        @app.call(env)
-      end
-    end
-
-    config.middleware.insert_before( Rails::Rack::Logger, LoggingMiddleware)
-
-    config.log_formatter = proc do |severity, datetime, progname, msg|
-      now = Time.zone.now.to_f
-      "[#{severity}] [#{datetime}] [PID=#{Process.pid}] [REQD=#{L.req_delta(now)}] [LOCD=#{L.local_delta(now)}] [RID=#{L.rid}] #{msg}\n"
-    end
   end
 end
 
